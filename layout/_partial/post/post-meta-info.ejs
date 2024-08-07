@@ -34,11 +34,11 @@ const { created_datetime_icon, updated_datetime_icon } = theme?.post || {}
                 <i class="icon <%= created_datetime_icon || 'fa-solid fa-calendar-plus' %>"></i>&nbsp;
                 <span class="datetime"><%= date(post.date, theme.post?.datetime_format || 'YYYY-MM-DD HH:mm:ss') %></span>
             </span>
-            <!--
+
             <span class="meta-info-item post-update-date">
                 <i class="icon <%= updated_datetime_icon || 'fa-solid fa-file-pen' %>"></i>&nbsp;
                 <span class="datetime" data-updated="<%= post.updated %>"><%= date(post.updated, theme.post?.datetime_format || 'YYYY-MM-DD HH:mm:ss') %></span>
-            </span>-->
+            </span>
         <% } %>
 
         <% if (post.categories.length && (theme?.home?.category === true || page_type === 'post')) { %>
