@@ -156,9 +156,17 @@ async function initPostHelper() {
       const updateDateDom = document.querySelector(
         '.post-meta-info-container .post-update-date .datetime'
       )
-      const updated = new Date(updateDateDom.dataset.updated).getTime()
-      const format = KEEP.theme_config.post?.datetime_format || KEEP.themeInfo.defaultDatetimeFormat
-      updateDateDom.innerHTML = KEEP.utils.formatDatetime(format, updated)
+
+      /* 在 post-meta-info.ejs 里注释掉 post-update-date，
+          会引起这里异常直接跳过toc按钮的初始化，
+          导致toc按钮不响应点击事件
+      */
+      if (updateDateDom !== null) { 
+        
+        const updated = new Date(updateDateDom.dataset.updated).getTime()
+        const format = KEEP.theme_config.post?.datetime_format || KEEP.themeInfo.defaultDatetimeFormat
+        updateDateDom.innerHTML = KEEP.utils.formatDatetime(format, updated)
+      }
     },
 
     // enable full screen
