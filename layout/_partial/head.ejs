@@ -4,6 +4,20 @@
     <meta name="keywords" content="<%= page?.keywords || config?.keywords || 'Hexo Theme Keep' %>">
     <meta name="description" content="<%= page?.description || config?.description || 'Hexo Theme Keep' %>">
     <meta name="author" content="<%= theme?.base_info?.author || config?.author || 'Keep Team' %>">
+    
+    <!-- Open Graph Protocol -->
+    <meta property="og:type" content="<%= is_post() ? 'article' : 'website' %>">
+    <meta property="og:title" content="<%= page.title || config.title %>">
+    <meta property="og:url" content="<%= page.permalink || config.url %>">
+    <meta property="og:site_name" content="<%= config.title %>">
+    <meta property="og:description" content="<%= page.description || config.description %>">
+    <% if (page.cover || page.photos?.[0]) { %>
+        <meta property="og:image" content="<%= page.cover || page.photos[0] %>">
+    <% } %>
+    <% if (config.language) { %>
+        <meta property="og:locale" content="<%= config.language %>">
+    <% } %>
+
     <%
     let title = page.title;
     if (is_archive()) {
@@ -43,5 +57,23 @@
         <% }) %>
     <% } %>
     <%- exportThemeConfig() %>
+    <% if (is_post()) { %>
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": "<%= page.title %>",
+          "datePublished": "<%= date(page.date, 'YYYY-MM-DD') %>",
+          "dateModified": "<%= date(page.updated, 'YYYY-MM-DD') %>",
+          "author": {
+            "@type": "Person",
+            "name": "<%= config.author %>"
+          },
+          "description": "<%= page.description || config.description %>",
+          "url": "<%= page.permalink %>",
+          "keywords": "<%= page.keywords || config.keywords %>"
+        }
+        </script>
+    <% } %>
 </head>
 
